@@ -1,4 +1,4 @@
-class TodoItem {
+export class TodoItem {
   #title;
   #description;
   #dueDate;
@@ -36,7 +36,7 @@ class TodoItem {
 
   set dueDate(newDueDate) {
     this.#dueDate = newDueDate;
-  }
+  } 
 
   get priority() {
     return this.#priority;
