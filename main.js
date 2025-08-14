@@ -15,7 +15,7 @@
   \**********************/
 /***/ (() => {
 
-eval("{console.log(\"alemanha\");\n\n//# sourceURL=webpack://webpack-practice/./src/index.js?\n}");
+eval("{throw new Error(\"Module parse failed: Unexpected token (12:6)\\nYou may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders\\n| // content.innerHTML = `\\n| //  <table>\\n>       <tr>\\n|         <th>Title</th>\\n|         <th>Description</th>\");\n\n//# sourceURL=webpack://webpack-practice/./src/index.js?\n}");
 
 /***/ })
 
@@ -24,7 +24,7 @@ eval("{console.log(\"alemanha\");\n\n//# sourceURL=webpack://webpack-practice/./
 /******/ 	
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	// This entry module can't be inlined because the eval devtool is used.
+/******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
 /******/ 	var __webpack_exports__ = {};
 /******/ 	__webpack_modules__["./src/index.js"]();
 /******/ 	
