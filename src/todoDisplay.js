@@ -1,6 +1,8 @@
+import { ITodoList } from "./ITodoList";
+
 class ManipulationDOM {
 
-  formsModal = document.createElement('dialog');
+  formsModal = document.querySelector('dialog');
 
   constructor() {
     this.formsModal.innerHTML = `
@@ -35,6 +37,18 @@ class ManipulationDOM {
     `;
   }
 
+  #createFormsButtonLogic(todoList){
+    const formsButton = this.formsModal.querySelector('button');
+    formsButton.addEventListener('click', () => {
+      //-> Get the values from inputs
+      //-> create a todoItem
+      //-> add new item to a existing list -> instance of the list
+      // todoListObject.addToList(item)
+      //-> call a re-render -> execute showTodoList() again;
+      this.formsModal.close()
+    })
+  }
+
 
   #createTodoItemRowHtml(todoItem) {
     const newTableRow = document.createElement('tr');
@@ -67,6 +81,11 @@ class ManipulationDOM {
   }
 
   showTodoList(todoList) {
+    //Setup Modal Forms Logic
+    this.#createFormsButtonLogic();
+
+
+    //Create Table of Items
     const content = document.querySelector(".content");
     const todoListScreen = document.createElement("div");
     todoListScreen.setAttribute("class", "todo-list");
@@ -81,16 +100,15 @@ class ManipulationDOM {
         <th>Completed</th>
       </tr>
     `
-    for (const todoItem of todoList.arrayTodosItems) {
+    for (const todoItem of todoList.getAllItems()) {
       const newRow = this.#createTodoItemRowHtml(todoItem);
       todoListTable.appendChild(newRow);
     }
     todoListScreen.appendChild(todoListTable);
     content.appendChild(todoListScreen);
-    const dialog = document.querySelector('dialog')
-    dialog.showModal();
+   
 
-    //-----Button to Add New Items
+    //-----Create Button to Add New Items
     const newItemButton = document.createElement('button');
     newItemButton.setAttribute("class", "new-item-button");
     newItemButton.textContent = 'add todo';
@@ -99,10 +117,6 @@ class ManipulationDOM {
       this.formsModal.showModal();
     })
     content.appendChild(newItemButton);
-
-  }
-
-  #createButtonHtml() {
 
   }
 

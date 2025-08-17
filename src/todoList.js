@@ -1,4 +1,6 @@
-export class TodoList {
+import { ITodoList } from "./ITodoList";
+
+export class TodoList extends ITodoList {
   constructor(arrayTodosItems) {
     this.arrayTodosItems = arrayTodosItems;
   }
@@ -13,6 +15,10 @@ export class TodoList {
 
   addToList(newTodoItem) {
     this._arrayTodosItems.push(newTodoItem);
+  }
+
+  getAllItems() {
+    return this.arrayTodosItems;
   }
  
 }
