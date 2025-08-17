@@ -78,3 +78,19 @@ caption {
   width: 150px;
   height: 50px;
 }
+
+.add-item-form{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.add-item-form > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.add-item-form > div > #completed {
+  align-self: flex-start;
+}
