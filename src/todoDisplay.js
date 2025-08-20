@@ -93,21 +93,7 @@ class ManipulationDOM {
     return newTableRow;
   }
 
-  showTodoList(todoList) {
-
-    //Inital Query
-    const content = document.querySelector('.content');
-
-    //Clean Table
-    content.innerHTML =``;
-
-    //Setup Modal Forms Logic
-    this.#createDialogAndForms();
-    this.#createFormsButtonLogic(todoList);
-    const formsModal = document.querySelector('dialog');
-
-    //Create Table of Items
-
+  #createTableOfItems(content, todoList) {
     const todoListScreen = document.createElement("div");
     todoListScreen.setAttribute("class", "todo-list");
     const todoListTable = document.createElement("table");
@@ -127,9 +113,9 @@ class ManipulationDOM {
     }
     todoListScreen.appendChild(todoListTable);
     content.appendChild(todoListScreen);
+  }
 
-
-    //-----Create Button to Add New Items
+  #createButtonToAddNewItems(content, formsModal) {
     const newItemButton = document.createElement('button');
     newItemButton.setAttribute("class", "new-item-button");
     newItemButton.textContent = 'add todo';
@@ -138,6 +124,24 @@ class ManipulationDOM {
       formsModal.showModal();
     })
     content.appendChild(newItemButton);
+  }
+
+  showTodoList(todoList) {
+
+    //Inital Query
+    const content = document.querySelector('.content');
+
+    //Clean Table
+    content.innerHTML = ``;
+
+    //Setup Modal Forms Logic
+    this.#createDialogAndForms();
+    this.#createFormsButtonLogic(todoList);
+    const formsModal = document.querySelector('dialog');
+
+    this.#createTableOfItems(content, todoList);
+
+    this.#createButtonToAddNewItems(content, formsModal);
 
   }
 
