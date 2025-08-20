@@ -1,11 +1,11 @@
 import { ITodoList } from "./ITodoList";
+import { TodoItem } from "./todoItem";
 
 class ManipulationDOM {
 
-  formsModal = document.querySelector('dialog');
-
-  constructor() {
-    this.formsModal.innerHTML = `
+  #createDialogAndForms() {
+    const formsModal = document.createElement('dialog');
+    formsModal.innerHTML = `
       <form action="" class="add-item-form">
         <div>
           <label for="title">Title</label>
@@ -35,17 +35,30 @@ class ManipulationDOM {
         <button type="submit">add item</button>
       </form>
     `;
+    const content = document.querySelector('.content');
+    content.appendChild(formsModal);
+
   }
 
-  #createFormsButtonLogic(todoList){
-    const formsButton = this.formsModal.querySelector('button');
-    formsButton.addEventListener('click', () => {
+  #createFormsButtonLogic(todoList) {
+    const formsModal = document.querySelector('dialog');
+    const formsButton = document.querySelector('button');
+
+    formsButton.addEventListener('click', (e) => {
+      e.preventDefault();
       //-> Get the values from inputs
+      const titleInput = document.querySelector('#title')
+      const descriptionInput = document.querySelector('#description')
+      const dueDateInput = document.querySelector("#due-date")
+      const priorityInput = document.querySelector("#priority");
+      const completed = document.querySelector("#completed");
       //-> create a todoItem
+      const newTodoItem = new TodoItem(titleInput.value, descriptionInput.value, dueDateInput.value, priorityInput.value, completed.value);
       //-> add new item to a existing list -> instance of the list
-      // todoListObject.addToList(item)
+      todoList.addToList(newTodoItem);
       //-> call a re-render -> execute showTodoList() again;
-      this.formsModal.close()
+      this.showTodoList(todoList);
+      formsModal.close()
     })
   }
 
@@ -81,12 +94,20 @@ class ManipulationDOM {
   }
 
   showTodoList(todoList) {
-    //Setup Modal Forms Logic
-    this.#createFormsButtonLogic();
 
+    //Inital Query
+    const content = document.querySelector('.content');
+
+    //Clean Table
+    content.innerHTML =``;
+
+    //Setup Modal Forms Logic
+    this.#createDialogAndForms();
+    this.#createFormsButtonLogic(todoList);
+    const formsModal = document.querySelector('dialog');
 
     //Create Table of Items
-    const content = document.querySelector(".content");
+
     const todoListScreen = document.createElement("div");
     todoListScreen.setAttribute("class", "todo-list");
     const todoListTable = document.createElement("table");
@@ -106,7 +127,7 @@ class ManipulationDOM {
     }
     todoListScreen.appendChild(todoListTable);
     content.appendChild(todoListScreen);
-   
+
 
     //-----Create Button to Add New Items
     const newItemButton = document.createElement('button');
@@ -114,7 +135,7 @@ class ManipulationDOM {
     newItemButton.textContent = 'add todo';
     newItemButton.addEventListener('click', () => {
       //Display Modal
-      this.formsModal.showModal();
+      formsModal.showModal();
     })
     content.appendChild(newItemButton);
 

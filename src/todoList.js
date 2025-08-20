@@ -2,6 +2,7 @@ import { ITodoList } from "./ITodoList";
 
 export class TodoList extends ITodoList {
   constructor(arrayTodosItems) {
+    super();
     this.arrayTodosItems = arrayTodosItems;
   }
   
