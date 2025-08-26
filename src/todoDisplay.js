@@ -1,4 +1,3 @@
-import { ITodoList } from "./ITodoList";
 import { TodoItem } from "./todoItem";
 
 class ManipulationDOM {

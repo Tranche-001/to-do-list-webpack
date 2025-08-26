@@ -1,9 +1,10 @@
 import { ITodoList } from "./ITodoList";
 
 export class TodoList extends ITodoList {
-  constructor(arrayTodosItems) {
+  constructor(arrayTodosItems, name) {
     super();
     this.arrayTodosItems = arrayTodosItems;
+    this.name = name;
   }
   
   get arrayTodosItems() {
@@ -19,7 +20,7 @@ export class TodoList extends ITodoList {
   }
 
   getAllItems() {
-    return this.arrayTodosItems;
+    return this._arrayTodosItems;
   }
  
 }
