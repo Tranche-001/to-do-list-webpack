@@ -84,6 +84,7 @@ class ManipulationDOM {
         checkboxInput.disabled = true;
         tableData.appendChild(checkboxInput);
       }
+
       else {
         tableData.textContent = prop.value;
       }
@@ -149,7 +150,30 @@ class ManipulationDOM {
 
 
 
-  showTodoProject() {
+  showTodoProject(arrayTodolist) {
+
+    //Inital Query
+    const content = document.querySelector('.content');
+
+    //Clean Table
+    content.innerHTML = ``;
+
+    //divs with each list
+    arrayTodolist.forEach(list => {
+      const listDiv = document.createElement('div');
+      listDiv.setAttribute('class', 'list-div')
+      const buttonEnterList = document.createElement('button');
+
+      listDiv.appendChild(buttonEnterList);
+
+      content.appendChild(listDiv);
+    })
+
+
+    const buttonCreateList = document.createElement('button');
+
+
+
 
   }
 }
