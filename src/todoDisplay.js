@@ -150,7 +150,7 @@ class ManipulationDOM {
 
 
 
-  showTodoProject(arrayTodolist) {
+  showTodoProjects(projects) {
 
     //Inital Query
     const content = document.querySelector('.content');
@@ -159,10 +159,18 @@ class ManipulationDOM {
     content.innerHTML = ``;
 
     //divs with each list
-    arrayTodolist.forEach(list => {
+    projects.arrayTodoList.forEach(list => {
       const listDiv = document.createElement('div');
       listDiv.setAttribute('class', 'list-div')
+
       const buttonEnterList = document.createElement('button');
+      buttonEnterList.textContent = `${list.name}`
+
+      //button EnterList Logic
+      //shows a specific list if clicked
+      buttonEnterList.addEventListener("click", () => {
+        this.showTodoList(list);
+      })
 
       listDiv.appendChild(buttonEnterList);
 
@@ -171,7 +179,7 @@ class ManipulationDOM {
 
 
     const buttonCreateList = document.createElement('button');
-
+    content.appendChild(buttonCreateList);
 
 
 
