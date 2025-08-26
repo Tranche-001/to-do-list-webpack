@@ -42,7 +42,7 @@ class ManipulationDOM {
   }
 
 
-  #createFormsButtonLogicForList(todoList) {
+  #createFormsButtonLogicForList(todoList, projects) {
     const formsModal = document.querySelector('dialog');
     const formsButton = document.querySelector('button');
 
@@ -59,7 +59,7 @@ class ManipulationDOM {
       //-> add new item to a existing list -> instance of the list
       todoList.addToList(newTodoItem);
       //-> call a re-render -> execute showTodoList() again;
-      this.showTodoList(todoList);
+      this.showTodoList(todoList, projects);
       formsModal.close()
     })
   }
@@ -129,8 +129,21 @@ class ManipulationDOM {
     content.appendChild(newItemButton);
   }
 
-  showTodoList(todoList) {
+  #createButtonToReturnToProjectPage(content, projects){
+    const returnButton = document.createElement("button");
+    returnButton.setAttribute("class", "return-button")
+    returnButton.textContent = "return";
 
+    returnButton.addEventListener("click", ()=> {
+      this.showTodoProjects(projects)
+    })
+
+
+    content.appendChild(returnButton);
+  }
+
+  showTodoList(todoList, projects) {
+    console.log(projects)
     //Inital Query
     const content = document.querySelector('.content');
 
@@ -139,12 +152,15 @@ class ManipulationDOM {
 
     //Setup Modal Forms Logic
     this.#createDialogAndFormsForList();
-    this.#createFormsButtonLogicForList(todoList);
+    this.#createFormsButtonLogicForList(todoList, projects);
     const formsModal = document.querySelector('dialog');
 
     this.#createTableOfItems(content, todoList);
 
     this.#createButtonToAddNewItems(content, formsModal);
+
+    //Create button to return to Project page
+    this.#createButtonToReturnToProjectPage(content, projects);
 
   }
 
@@ -189,7 +205,7 @@ class ManipulationDOM {
 
 
   showTodoProjects(projects) {
-
+    console.log(projects)
     //Inital Query
     const content = document.querySelector('.content');
 
@@ -213,7 +229,7 @@ class ManipulationDOM {
       //button EnterList Logic
       //shows a specific list if clicked
       buttonEnterList.addEventListener("click", () => {
-        this.showTodoList(list);
+        this.showTodoList(list, projects);
       })
 
       listDiv.appendChild(buttonEnterList);
