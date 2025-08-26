@@ -55,7 +55,7 @@ class ManipulationDOM {
       const priorityInput = document.querySelector("#priority");
       const completed = document.querySelector("#completed");
       //-> create a todoItem
-      const newTodoItem = new TodoItem(titleInput.value, descriptionInput.value, dueDateInput.value, priorityInput.value, completed.value);
+      const newTodoItem = new TodoItem(titleInput.value, descriptionInput.value, dueDateInput.value, priorityInput.value, completed.checked);
       //-> add new item to a existing list -> instance of the list
       todoList.addToList(newTodoItem);
       //-> call a re-render -> execute showTodoList() again;
@@ -84,7 +84,6 @@ class ManipulationDOM {
         const checkboxInput = document.createElement('input');
         checkboxInput.type = 'checkbox';
         checkboxInput.checked = prop.value;
-        checkboxInput.disabled = true;
         tableData.appendChild(checkboxInput);
       }
 
@@ -129,12 +128,12 @@ class ManipulationDOM {
     content.appendChild(newItemButton);
   }
 
-  #createButtonToReturnToProjectPage(content, projects){
+  #createButtonToReturnToProjectPage(content, projects) {
     const returnButton = document.createElement("button");
     returnButton.setAttribute("class", "return-button")
     returnButton.textContent = "return";
 
-    returnButton.addEventListener("click", ()=> {
+    returnButton.addEventListener("click", () => {
       this.showTodoProjects(projects)
     })
 
@@ -182,7 +181,7 @@ class ManipulationDOM {
   }
 
 
-  
+
   #createFormsButtonLogicForProject(projects) {
     const formsModal = document.querySelector('dialog');
     const formsButton = document.querySelector('button');
@@ -199,6 +198,27 @@ class ManipulationDOM {
       this.showTodoProjects(projects);
       formsModal.close()
     })
+  }
+
+  #createTableOfLists(content, projects) {
+    //divs with each list
+    projects.arrayTodoList.forEach(list => {
+      const listDiv = document.createElement('div');
+      listDiv.setAttribute('class', 'list-div')
+
+      const buttonEnterList = document.createElement('button');
+      buttonEnterList.textContent = `${list.name}`
+      //button EnterList Logic
+      //shows a specific list if clicked
+      buttonEnterList.addEventListener("click", () => {
+        this.showTodoList(list, projects);
+      })
+
+      listDiv.appendChild(buttonEnterList);
+
+      content.appendChild(listDiv);
+    })
+
   }
 
 
@@ -218,25 +238,7 @@ class ManipulationDOM {
     const formsModal = document.querySelector('dialog');
 
 
-    //divs with each list
-    console.log(projects.arrayTodoList)
-    projects.arrayTodoList.forEach(list => {
-      const listDiv = document.createElement('div');
-      listDiv.setAttribute('class', 'list-div')
-
-      const buttonEnterList = document.createElement('button');
-      buttonEnterList.textContent = `${list.name}`
-      //button EnterList Logic
-      //shows a specific list if clicked
-      buttonEnterList.addEventListener("click", () => {
-        this.showTodoList(list, projects);
-      })
-
-      listDiv.appendChild(buttonEnterList);
-
-      content.appendChild(listDiv);
-    })
-
+    this.#createTableOfLists(content, projects);
 
     const buttonCreateList = document.createElement('button');
     buttonCreateList.textContent = "create new project";
