@@ -1,8 +1,10 @@
 import { TodoItem } from "./todoItem";
+import { TodoList } from "./todoList";
+import { TodoProjects } from "./todoProjects";
 
 class ManipulationDOM {
 
-  #createDialogAndForms() {
+  #createDialogAndFormsForList() {
     const formsModal = document.createElement('dialog');
     formsModal.innerHTML = `
       <form action="" class="add-item-form">
@@ -39,7 +41,8 @@ class ManipulationDOM {
 
   }
 
-  #createFormsButtonLogic(todoList) {
+
+  #createFormsButtonLogicForList(todoList) {
     const formsModal = document.querySelector('dialog');
     const formsButton = document.querySelector('button');
 
@@ -135,8 +138,8 @@ class ManipulationDOM {
     content.innerHTML = ``;
 
     //Setup Modal Forms Logic
-    this.#createDialogAndForms();
-    this.#createFormsButtonLogic(todoList);
+    this.#createDialogAndFormsForList();
+    this.#createFormsButtonLogicForList(todoList);
     const formsModal = document.querySelector('dialog');
 
     this.#createTableOfItems(content, todoList);
@@ -146,6 +149,41 @@ class ManipulationDOM {
   }
 
 
+
+  #createDialogAndFormsForProject() {
+    const formsModal = document.createElement('dialog');
+    formsModal.innerHTML = `
+      <form action="" class="add-item-form">
+        <div>
+          <label for="name">Title</label>
+          <input type="text" id="name">
+        </div>
+        <button type="submit">create list</button>
+      </form>
+    `;
+    const content = document.querySelector('.content');
+    content.appendChild(formsModal);
+  }
+
+
+  
+  #createFormsButtonLogicForProject(projects) {
+    const formsModal = document.querySelector('dialog');
+    const formsButton = document.querySelector('button');
+
+    formsButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      //-> Get the values from inputs
+      const nameInput = document.querySelector('#name')
+      //-> create a new list
+      const newTodoList = new TodoList([], nameInput.value);
+      //-> add the list to the projects
+      projects.addToProjects(newTodoList);
+      //-> call a re-render -> execute showTodoProjects() again;
+      this.showTodoProjects(projects);
+      formsModal.close()
+    })
+  }
 
 
 
@@ -158,14 +196,20 @@ class ManipulationDOM {
     //Clean Table
     content.innerHTML = ``;
 
+    //Setup Modal Forms Logic
+    this.#createDialogAndFormsForProject();
+    this.#createFormsButtonLogicForProject(projects);
+    const formsModal = document.querySelector('dialog');
+
+
     //divs with each list
+    console.log(projects.arrayTodoList)
     projects.arrayTodoList.forEach(list => {
       const listDiv = document.createElement('div');
       listDiv.setAttribute('class', 'list-div')
 
       const buttonEnterList = document.createElement('button');
       buttonEnterList.textContent = `${list.name}`
-
       //button EnterList Logic
       //shows a specific list if clicked
       buttonEnterList.addEventListener("click", () => {
@@ -179,9 +223,12 @@ class ManipulationDOM {
 
 
     const buttonCreateList = document.createElement('button');
+    buttonCreateList.textContent = "create new project";
+    buttonCreateList.addEventListener('click', () => {
+      //open dialog
+      formsModal.showModal();
+    })
     content.appendChild(buttonCreateList);
-
-
 
   }
 }

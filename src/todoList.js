@@ -3,6 +3,7 @@ import { ITodoList } from "./ITodoList";
 export class TodoList extends ITodoList {
   constructor(arrayTodosItems, name) {
     super();
+    this.id = crypto.randomUUID();
     this.arrayTodosItems = arrayTodosItems;
     this.name = name;
   }
