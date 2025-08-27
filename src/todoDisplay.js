@@ -139,7 +139,7 @@ class ManipulationDOM {
       projects.arrayTodoList.forEach((project) => {
         //previous(from) project search and delete(if it the previous is main then there is no delete)
         if (project.name == todoItem.whichProjectIsFrom) {
-          project.deleteFromList(todoItem.id);
+          if(project.name!="Main List") project.deleteFromList(todoItem.id);
         }
       })
       //Change todoItem to new value
@@ -148,7 +148,7 @@ class ManipulationDOM {
       projects.arrayTodoList.forEach((project) => {
         //new(to) project search add(if new is main, then there is no add)
         if (project.name == todoItem.whichProjectIsFrom) {
-          project.addToList(todoItem);
+          if(project.name!="Main List")project.addToList(todoItem);
         }
       })
       this.showTodoList(todoList, projects)
@@ -163,6 +163,11 @@ class ManipulationDOM {
   #createTableOfItems(content, todoList, projects) {
     const todoListScreen = document.createElement("div");
     todoListScreen.setAttribute("class", "todo-list");
+
+    const todoListHeader = document.createElement("h1");
+    todoListHeader.textContent = `${todoList.name}`;
+    todoListScreen.appendChild(todoListHeader);
+
     const todoListTable = document.createElement("table");
     todoListTable.innerHTML =
       `
@@ -268,6 +273,7 @@ class ManipulationDOM {
   }
 
   #createTableOfLists(content, projects) {
+
     //divs with each list
     projects.arrayTodoList.forEach(list => {
       const listDiv = document.createElement('div');
@@ -294,10 +300,15 @@ class ManipulationDOM {
   showTodoProjects(projects) {
     console.log(projects)
     //Inital Query
-    const content = document.querySelector('.content');
+    const content = document.querySelector('.show-project');
 
     //Clean Table
     content.innerHTML = ``;
+
+    //Div Header
+    const projectHeader = document.createElement('div');
+    projectHeader.innerHTML = `<h1>Todo List</h1>`;
+    content.appendChild(projectHeader);
 
     //Setup Modal Forms Logic
     this.#createDialogAndFormsForProject();

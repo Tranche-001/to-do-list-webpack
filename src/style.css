@@ -85,7 +85,7 @@ caption {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  font-family: "Times New Roman", Times, serif;
 }
 
 .new-item-button {
@@ -109,6 +109,7 @@ caption {
 .add-item-form>div>#completed {
   align-self: flex-start;
 }
+
 .return-button {
   position: fixed;
   top: 20px;
@@ -119,6 +120,24 @@ caption {
 }
 
 /* Projects-section */
+
+.show-project {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+
+}
+
+.show-project div:first-child {
+  height: 70px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 36px;
+  background-color: burlywood;
+}
 
 .list-div {
   font-style: 'sans-serif';
@@ -144,4 +163,3 @@ caption {
   width: 150px;
   height: 50px;
 }
-
