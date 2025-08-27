@@ -4,14 +4,16 @@ export class TodoItem {
   #dueDate;
   #priority;
   #completed;
+  #whichProjectIsFrom;
 
-  constructor(title, description, dueDate, priority, completed) {
+  constructor(title, description, dueDate, priority, completed, projectName) {
     this.id = crypto.randomUUID();
     this.#title = title;
     this.#description = description;
     this.#dueDate = dueDate;
     this.#priority = priority;
     this.#completed = completed;
+    this.#whichProjectIsFrom = projectName;
   }
 
    // Public getters and setters
@@ -53,5 +55,13 @@ export class TodoItem {
 
   set completed(newCompleted) {
     this.#completed = newCompleted;
+  }
+
+  get whichProjectIsFrom(){
+    return this.#whichProjectIsFrom;
+  }
+
+  set whichProjectIsFrom(newProjectName){
+    this.#whichProjectIsFrom = newProjectName;
   }
 }

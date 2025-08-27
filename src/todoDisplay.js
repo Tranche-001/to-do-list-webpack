@@ -55,7 +55,13 @@ class ManipulationDOM {
       const priorityInput = document.querySelector("#priority");
       const completed = document.querySelector("#completed");
       //-> create a todoItem
-      const newTodoItem = new TodoItem(titleInput.value, descriptionInput.value, dueDateInput.value, priorityInput.value, completed.checked);
+      const newTodoItem = new TodoItem(
+        titleInput.value,
+        descriptionInput.value, 
+        dueDateInput.value, 
+        priorityInput.value, 
+        completed.checked, 
+        "Main List");
       //-> add new item to a existing list -> instance of the list
       todoList.addToList(newTodoItem);
       //-> call a re-render -> execute showTodoList() again;
@@ -94,9 +100,9 @@ class ManipulationDOM {
     });
 
     //Delete To-do Button
-    const tableData = document.createElement('td');
+    const tableDataDelete = document.createElement('td');
     const deleteTodoButton = document.createElement("button");
-    deleteTodoButton.textContent= "delete";
+    deleteTodoButton.textContent = "delete";
     deleteTodoButton.setAttribute('data-id', todoItem.id);
 
     deleteTodoButton.addEventListener("click", () => {
@@ -104,8 +110,52 @@ class ManipulationDOM {
       this.showTodoList(todoList, projects);
     })
 
-    tableData.appendChild(deleteTodoButton);
-    newTableRow.appendChild(tableData);
+    tableDataDelete.appendChild(deleteTodoButton);
+    newTableRow.appendChild(tableDataDelete);
+
+
+    //Choose Project alocation
+    const tableDataChooseProject = document.createElement('td');
+    const selectToggle = document.createElement("select");
+    selectToggle.setAttribute("id", "projects");
+    selectToggle.setAttribute("name", "projects");
+
+    //create options
+    projects.arrayTodoList.forEach(project => {
+
+      const newOption = document.createElement('option');
+      newOption.setAttribute("value", `${project.name}`);
+      newOption.textContent = `${project.name}`;
+      //Make the option which Item is from to be the one selected when the pages render
+      if (project.name == todoItem.whichProjectIsFrom) {
+        newOption.selected = true;
+      }
+      selectToggle.appendChild(newOption);
+    })
+
+    //transfer a item from a project to another
+    selectToggle.addEventListener("change", () => {
+
+      projects.arrayTodoList.forEach((project) => {
+        //previous(from) project search and delete(if it the previous is main then there is no delete)
+        if (project.name == todoItem.whichProjectIsFrom) {
+          project.deleteFromList(todoItem.id);
+        }
+      })
+      //Change todoItem to new value
+      todoItem.whichProjectIsFrom = selectToggle.value;
+
+      projects.arrayTodoList.forEach((project) => {
+        //new(to) project search add(if new is main, then there is no add)
+        if (project.name == todoItem.whichProjectIsFrom) {
+          project.addToList(todoItem);
+        }
+      })
+      this.showTodoList(todoList, projects)
+    })
+
+    tableDataChooseProject.appendChild(selectToggle);
+    newTableRow.appendChild(tableDataChooseProject);
 
     return newTableRow;
   }
@@ -123,6 +173,7 @@ class ManipulationDOM {
         <th>Priority</th>
         <th>Completed</th>
         <th>Delete</th>
+        <th>Choose Project</th>
       </tr>
     `
     for (const todoItem of todoList.getAllItems()) {
