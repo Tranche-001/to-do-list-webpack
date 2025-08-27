@@ -7,7 +7,7 @@ export class TodoList extends ITodoList {
     this.arrayTodosItems = arrayTodosItems;
     this.name = name;
   }
-  
+
   get arrayTodosItems() {
     return this._arrayTodosItems;
   }
@@ -23,5 +23,12 @@ export class TodoList extends ITodoList {
   getAllItems() {
     return this._arrayTodosItems;
   }
- 
+  deleteFromList(itemId) {
+    for (let i = 0; i < this.arrayTodosItems.length; i++) {
+      if (this.arrayTodosItems[i].id == itemId) {
+        this._arrayTodosItems.splice(1, i);
+      }
+    }
+  }
+
 }

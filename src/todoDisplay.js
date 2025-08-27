@@ -65,9 +65,9 @@ class ManipulationDOM {
   }
 
 
-  #createTodoItemRowHtml(todoItem) {
+  #createTodoItemRowHtml(todoItem, todoList, projects) {
     const newTableRow = document.createElement('tr');
-
+    newTableRow.setAttribute('data-id', todoItem.id);
     // Access properties via getters
     const properties = [
       { name: 'Title', value: todoItem.title },
@@ -92,10 +92,25 @@ class ManipulationDOM {
       }
       newTableRow.appendChild(tableData);
     });
+
+    //Delete To-do Button
+    const tableData = document.createElement('td');
+    const deleteTodoButton = document.createElement("button");
+    deleteTodoButton.textContent= "delete";
+    deleteTodoButton.setAttribute('data-id', todoItem.id);
+
+    deleteTodoButton.addEventListener("click", () => {
+      todoList.deleteFromList(todoItem.id);
+      this.showTodoList(todoList, projects);
+    })
+
+    tableData.appendChild(deleteTodoButton);
+    newTableRow.appendChild(tableData);
+
     return newTableRow;
   }
 
-  #createTableOfItems(content, todoList) {
+  #createTableOfItems(content, todoList, projects) {
     const todoListScreen = document.createElement("div");
     todoListScreen.setAttribute("class", "todo-list");
     const todoListTable = document.createElement("table");
@@ -107,10 +122,11 @@ class ManipulationDOM {
         <th>Due-Date</th>
         <th>Priority</th>
         <th>Completed</th>
+        <th>Delete</th>
       </tr>
     `
     for (const todoItem of todoList.getAllItems()) {
-      const newRow = this.#createTodoItemRowHtml(todoItem);
+      const newRow = this.#createTodoItemRowHtml(todoItem, todoList, projects);
       todoListTable.appendChild(newRow);
     }
     todoListScreen.appendChild(todoListTable);
@@ -154,7 +170,7 @@ class ManipulationDOM {
     this.#createFormsButtonLogicForList(todoList, projects);
     const formsModal = document.querySelector('dialog');
 
-    this.#createTableOfItems(content, todoList);
+    this.#createTableOfItems(content, todoList, projects);
 
     this.#createButtonToAddNewItems(content, formsModal);
 
