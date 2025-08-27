@@ -26,7 +26,7 @@ export class TodoList extends ITodoList {
   deleteFromList(itemId) {
     for (let i = 0; i < this.arrayTodosItems.length; i++) {
       if (this.arrayTodosItems[i].id == itemId) {
-        this._arrayTodosItems.splice(1, i);
+        this._arrayTodosItems.splice(i, 1);
       }
     }
   }
