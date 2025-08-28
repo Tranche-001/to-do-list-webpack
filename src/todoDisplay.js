@@ -300,23 +300,28 @@ class ManipulationDOM {
   showTodoProjects(projects) {
     console.log(projects)
     //Inital Query
-    const content = document.querySelector('.show-project');
+    const content = document.querySelector('.content');
 
     //Clean Table
     content.innerHTML = ``;
 
+    //Create special div for showing the projects
+    const showProject = document.createElement('div');
+    showProject.setAttribute('class', 'show-project');
+    
+
     //Div Header
     const projectHeader = document.createElement('div');
     projectHeader.innerHTML = `<h1>Todo List</h1>`;
-    content.appendChild(projectHeader);
+    showProject.appendChild(projectHeader);
 
-    //Setup Modal Forms Logic
-    this.#createDialogAndFormsForProject();
-    this.#createFormsButtonLogicForProject(projects);
-    const formsModal = document.querySelector('dialog');
+    const newProjectColumn = document.createElement('div');
+    newProjectColumn.setAttribute('class', 'new-project-column');
 
-
-    this.#createTableOfLists(content, projects);
+    //Button to create new Lists
+    const newListDiv = document.createElement('div');
+    newListDiv.setAttribute('class', 'new-list');
+    newListDiv.innerHTML = `<div>Projects</div>`;
 
     const buttonCreateList = document.createElement('button');
     buttonCreateList.textContent = "create new project";
@@ -324,9 +329,22 @@ class ManipulationDOM {
       //open dialog
       formsModal.showModal();
     })
-    content.appendChild(buttonCreateList);
+    newListDiv.appendChild(buttonCreateList);
+    newProjectColumn.appendChild(newListDiv);
+    showProject.appendChild(newProjectColumn);
 
+    //Setup Modal Forms Logic
+    this.#createDialogAndFormsForProject();
+    this.#createFormsButtonLogicForProject(projects);
+    const formsModal = document.querySelector('dialog');
+
+
+    this.#createTableOfLists(newProjectColumn, projects);
+
+    
+    content.appendChild(showProject);
   }
+  
 }
 
 export const domManipulator = new ManipulationDOM();
