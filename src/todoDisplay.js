@@ -10,22 +10,22 @@ class ManipulationDOM {
       <form action="" class="add-item-form">
         <div>
           <label for="title">Title</label>
-          <input type="text" id="title">
+          <input type="text" id="title" required>
         </div>
 
         <div>
           <label for="description">Description</label>
-          <input type="text" id="description">
+          <input type="text" id="description" required>
         </div>
 
         <div>
           <label for="due-date">Due Date</label>
-          <input type="text" id="due-date">
+          <input type="text" id="due-date" required>
         </div>
 
         <div>
           <label for="priority">Priority</label>
-          <input type="text" id="priority">
+          <input type="text" id="priority" required>
         </div>
 
         <div>
@@ -221,17 +221,23 @@ class ManipulationDOM {
     //Clean Table
     content.innerHTML = ``;
 
+    //Create special div for showing the lists
+    const showList = document.createElement('div');
+    showList.setAttribute('class', 'show-list');
+
     //Setup Modal Forms Logic
     this.#createDialogAndFormsForList();
     this.#createFormsButtonLogicForList(todoList, projects);
     const formsModal = document.querySelector('dialog');
 
-    this.#createTableOfItems(content, todoList, projects);
+    this.#createTableOfItems(showList, todoList, projects);
 
-    this.#createButtonToAddNewItems(content, formsModal);
+    this.#createButtonToAddNewItems(showList, formsModal);
 
     //Create button to return to Project page
-    this.#createButtonToReturnToProjectPage(content, projects);
+    this.#createButtonToReturnToProjectPage(showList, projects);
+
+    content.appendChild(showList);
 
   }
 
@@ -243,7 +249,7 @@ class ManipulationDOM {
       <form action="" class="add-item-form">
         <div>
           <label for="name">Title</label>
-          <input type="text" id="name">
+          <input type="text" id="name" required>
         </div>
         <button type="submit">create list</button>
       </form>
