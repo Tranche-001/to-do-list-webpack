@@ -55,15 +55,26 @@ class ManipulationDOM {
       const priorityInput = document.querySelector("#priority");
       const completed = document.querySelector("#completed");
       //-> create a todoItem
+      // it toggles directly to the the project it was created
       const newTodoItem = new TodoItem(
         titleInput.value,
-        descriptionInput.value, 
-        dueDateInput.value, 
-        priorityInput.value, 
-        completed.checked, 
-        "Main List");
+        descriptionInput.value,
+        dueDateInput.value,
+        priorityInput.value,
+        completed.checked,
+        todoList.name);
       //-> add new item to a existing list -> instance of the list
+
+      // if list is not the main, add the Item also in the main
+      if(todoList.name != "Main List"){
+        projects.arrayTodoList.forEach(project => {
+          if(project.name == "Main List"){
+            project.addToList(newTodoItem);
+          }
+        })
+      }
       todoList.addToList(newTodoItem);
+
       //-> call a re-render -> execute showTodoList() again;
       this.showTodoList(todoList, projects);
       formsModal.close()
@@ -139,7 +150,7 @@ class ManipulationDOM {
       projects.arrayTodoList.forEach((project) => {
         //previous(from) project search and delete(if it the previous is main then there is no delete)
         if (project.name == todoItem.whichProjectIsFrom) {
-          if(project.name!="Main List") project.deleteFromList(todoItem.id);
+          if (project.name != "Main List") project.deleteFromList(todoItem.id);
         }
       })
       //Change todoItem to new value
@@ -148,7 +159,7 @@ class ManipulationDOM {
       projects.arrayTodoList.forEach((project) => {
         //new(to) project search add(if new is main, then there is no add)
         if (project.name == todoItem.whichProjectIsFrom) {
-          if(project.name!="Main List")project.addToList(todoItem);
+          if (project.name != "Main List") project.addToList(todoItem);
         }
       })
       this.showTodoList(todoList, projects)
@@ -314,7 +325,7 @@ class ManipulationDOM {
     //Create special div for showing the projects
     const showProject = document.createElement('div');
     showProject.setAttribute('class', 'show-project');
-    
+
 
     //Div Header
     const projectHeader = document.createElement('div');
@@ -347,10 +358,10 @@ class ManipulationDOM {
 
     this.#createTableOfLists(newProjectColumn, projects);
 
-    
+
     content.appendChild(showProject);
   }
-  
+
 }
 
 export const domManipulator = new ManipulationDOM();
