@@ -3,6 +3,10 @@
 
 :root {
   line-height: 1.5;
+  --first-color: #006d77;
+  --second-color: #83c5be;
+  --third-color: #edf6f9;
+  color: var(--third-color);
 }
 
 h1,
@@ -93,7 +97,7 @@ caption {
 }
 .todo-list > h1 {
   display: block;
-  background-color: rgb(237, 210, 175);
+  background-color: var(--first-color);
   font-size: 36px;
   width: 100%;
   text-align: center;
@@ -160,7 +164,7 @@ caption {
   justify-content: center;
   align-items: center;
   font-size: 36px;
-  background-color:   rgb(237, 210, 175);
+  background-color:   var(--first-color);
 }
 
 .new-project-column{
@@ -168,7 +172,7 @@ caption {
   flex-direction: column;
   width: 500px;
   height: 100vh;
-  background-color: rgb(227, 197, 157);
+  background-color: var(--first-color);
 
 }
 
@@ -179,7 +183,8 @@ caption {
   gap: 170px;
   font-size: 20px;
   padding: 20px 0;
-  background-color: rgb(177, 145, 219);
+  background-color: var(--second-color);
+  color: var(--first-color);
 
 }
 .new-list > div {
@@ -191,7 +196,7 @@ caption {
   font-style: 'sans-serif';
 
   height: 100px;
-  background-color: blueviolet;
+  background-color: var(--second-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -200,11 +205,14 @@ caption {
 }
 
 .list-div>button {
-  width: 200px;
-  height: 75px;
-  border-radius: 4px;
-  border-width: 10px;
-  font-size: 20px;
+  border: none;
+  font-size: 1.2rem;
+  padding: 0.5rem 1.4rem;
+  background-color: var(--first-color);
+  color: var(--third-color);
+  border-radius: 3rem;
+  height: 3rem;
+  text-align: center;
 }
 
 .list-div+button {
