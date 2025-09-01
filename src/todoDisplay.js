@@ -232,12 +232,14 @@ class ManipulationDOM {
     //Inital Query
     const content = document.querySelector('.content');
 
-    //Clean Table
-    content.innerHTML = ``;
 
     //Create special div for showing the lists
     const showList = document.createElement('div');
     showList.setAttribute('class', 'show-list');
+
+    showList.innerHTML = ``;
+
+    const mainPage = document.querySelector('.main-page');
 
     //Setup Modal Forms Logic
     this.#createDialogAndFormsForList();
@@ -251,7 +253,8 @@ class ManipulationDOM {
     //Create button to return to Project page
     this.#createButtonToReturnToProjectPage(showList, projects);
 
-    content.appendChild(showList);
+    mainPage.appendChild(showList);
+
 
   }
 
@@ -329,6 +332,9 @@ class ManipulationDOM {
     const showProject = document.createElement('div');
     showProject.setAttribute('class', 'show-project');
 
+    // Create special div for new-project column and show list to coexist in the same page
+    const mainPage = document.createElement('div');
+    mainPage.setAttribute('class', 'main-page');
 
     //Div Header
     const projectHeader = document.createElement('div');
@@ -351,7 +357,8 @@ class ManipulationDOM {
     })
     newListDiv.appendChild(buttonCreateList);
     newProjectColumn.appendChild(newListDiv);
-    showProject.appendChild(newProjectColumn);
+    mainPage.appendChild(newProjectColumn);
+    showProject.appendChild(mainPage);
 
     //Setup Modal Forms Logic
     this.#createDialogAndFormsForProject();
