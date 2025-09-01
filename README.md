@@ -12,6 +12,14 @@ Click [here](https://tranche-001.github.io/to-do-list-webpack/) to view the live
 - **Smart Alocation**: Change Tasks between projects
 - **Intuitive Interface**: Clean, responsive design for easy task management
 
+## Lessons
+
+- Webpack usage
+- SOLID principles
+- Modularization
+- Private/Public
+- OOP
+
 ## Technologies Used
 
 - HTML5
