@@ -233,9 +233,8 @@ class ManipulationDOM {
     const content = document.querySelector('.content');
 
 
-    //Create special div for showing the lists
-    const showList = document.createElement('div');
-    showList.setAttribute('class', 'show-list');
+    //Query special div for showing the lists
+    const showList = document.querySelector('.show-list');
 
     showList.innerHTML = ``;
 
@@ -358,6 +357,15 @@ class ManipulationDOM {
     newListDiv.appendChild(buttonCreateList);
     newProjectColumn.appendChild(newListDiv);
     mainPage.appendChild(newProjectColumn);
+
+
+    //Create special div for showing the lists
+    const showList = document.createElement('div');
+    showList.setAttribute('class', 'show-list');
+
+    mainPage.appendChild(showList);
+
+
     showProject.appendChild(mainPage);
 
     //Setup Modal Forms Logic
