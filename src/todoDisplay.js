@@ -117,7 +117,10 @@ class ManipulationDOM {
     deleteTodoButton.setAttribute('data-id', todoItem.id);
 
     deleteTodoButton.addEventListener("click", () => {
-      todoList.deleteFromList(todoItem.id);
+      //Deleting a Item -> must be deleted from ALL projects
+      projects.arrayTodoList.forEach(list => {
+        list.deleteFromList(todoItem.id);
+      })
       this.showTodoList(todoList, projects);
     })
 
