@@ -11,6 +11,11 @@ Click [here](https://tranche-001.github.io/to-do-list-webpack/) to view the live
 - **Project Organization**: Create and manage multiple projects
 - **Smart Alocation**: Change Tasks between projects
 - **Intuitive Interface**: Clean, responsive design for easy task management
+- - Delete from a project -> delete from all projects
+- - All tasks are in Main List, even when added in another project
+- - Changing Tasks between projects does not remove it from Main but does remove from where it was.
+
+
 
 ## Lessons
 
