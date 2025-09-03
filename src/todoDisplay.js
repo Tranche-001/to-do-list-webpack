@@ -67,9 +67,9 @@ class ManipulationDOM {
       //-> add new item to a existing list -> instance of the list
 
       // if list is not the main, add the Item also in the main
-      if(todoList.name != "Main List"){
+      if (todoList.name != "Main List") {
         projects.arrayTodoList.forEach(project => {
-          if(project.name == "Main List"){
+          if (project.name == "Main List") {
             project.addToList(newTodoItem);
           }
         })
@@ -84,8 +84,9 @@ class ManipulationDOM {
 
 
   #createTodoItemRowHtml(todoItem, todoList, projects) {
-    const newTableRow = document.createElement('tr');
+    const newTableRow = document.createElement('div');
     newTableRow.setAttribute('data-id', todoItem.id);
+    newTableRow.setAttribute('class', 'table-row');
     // Access properties via getters
     const properties = [
       { name: 'Title', value: todoItem.title },
@@ -96,7 +97,8 @@ class ManipulationDOM {
     ];
 
     properties.forEach(prop => {
-      const tableData = document.createElement('td');
+      const tableData = document.createElement('div');
+      tableData.setAttribute('class', 'table-data');
 
       if (prop.name === 'Completed') {
         const checkboxInput = document.createElement('input');
@@ -112,7 +114,8 @@ class ManipulationDOM {
     });
 
     //Delete To-do Button
-    const tableDataDelete = document.createElement('td');
+    const tableDataDelete = document.createElement('div');
+    tableDataDelete.setAttribute('class', 'table-data');
     const deleteTodoButton = document.createElement("button");
     deleteTodoButton.textContent = "delete";
     deleteTodoButton.setAttribute('data-id', todoItem.id);
@@ -130,7 +133,8 @@ class ManipulationDOM {
 
 
     //Choose Project alocation
-    const tableDataChooseProject = document.createElement('td');
+    const tableDataChooseProject = document.createElement('div');
+    tableDataChooseProject.setAttribute('class', 'table-data');
     const selectToggle = document.createElement("select");
     selectToggle.setAttribute("id", "projects");
     selectToggle.setAttribute("name", "projects");
@@ -183,19 +187,9 @@ class ManipulationDOM {
     todoListHeader.textContent = `${todoList.name}`;
     todoListScreen.appendChild(todoListHeader);
 
-    const todoListTable = document.createElement("table");
-    todoListTable.innerHTML =
-      `
-      <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Due-Date</th>
-        <th>Priority</th>
-        <th>Completed</th>
-        <th>Delete</th>
-        <th>Choose Project</th>
-      </tr>
-    `
+    const todoListTable = document.createElement("div");
+    todoListTable.setAttribute('class', 'list-table');
+    
     for (const todoItem of todoList.getAllItems()) {
       const newRow = this.#createTodoItemRowHtml(todoItem, todoList, projects);
       todoListTable.appendChild(newRow);
@@ -263,13 +257,14 @@ class ManipulationDOM {
 
   #createDialogAndFormsForProject() {
     const formsModal = document.createElement('dialog');
+    formsModal.setAttribute('class', 'project-form-modal'); 
     formsModal.innerHTML = `
       <form action="" class="add-item-form">
         <div>
           <label for="name">Title</label>
           <input type="text" id="name" required>
         </div>
-        <button type="submit">create list</button>
+        <button type="submit class="create-list-button">create list</button>
       </form>
     `;
     const content = document.querySelector('.content');
@@ -279,7 +274,7 @@ class ManipulationDOM {
 
 
   #createFormsButtonLogicForProject(projects) {
-    const formsModal = document.querySelector('dialog');
+    const formsModal = document.querySelector('.project-form-modal');
     const formsButton = document.querySelector('button');
 
     formsButton.addEventListener('click', (e) => {
@@ -352,6 +347,7 @@ class ManipulationDOM {
 
     const buttonCreateList = document.createElement('button');
     buttonCreateList.textContent = "create new project";
+    buttonCreateList.setAttribute('class', 'create-new-project-button');
     buttonCreateList.addEventListener('click', () => {
       //open dialog
       formsModal.showModal();

@@ -6,6 +6,7 @@
   --first-color: #006d77;
   --second-color: #83c5be;
   --third-color: #edf6f9;
+  --fourth-color: #00464d;
   color: var(--third-color);
 }
 
@@ -86,14 +87,13 @@ caption {
 .show-list{
   display: flex;
   flex-direction: column;
-  align-items: center;
+  flex-grow: 1;
 }
 
 .todo-list{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 .todo-list > h1 {
   display: block;
@@ -106,6 +106,20 @@ caption {
 .todo-list> table {
   font-size: 18px;
 }
+
+.list-table{
+  display: flex;
+  flex-direction: column;
+}
+.table-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 30px 0;
+  background-color: var(--fourth-color);
+  height: 50px;
+}
+
 
 
 /* new item button */
