@@ -37,7 +37,7 @@ class ManipulationDOM {
         <button type="submit" class="add-button-list">add item</button>
       </form>
     `;
-    const content = document.querySelector('.content');
+    const content = document.querySelector('.show-list');
     content.appendChild(formsModal);
 
   }
@@ -230,6 +230,7 @@ class ManipulationDOM {
 
   showTodoList(todoList, projects) {
     console.log(projects)
+    console.log(todoList);
     //Inital Query
     const content = document.querySelector('.content');
 
