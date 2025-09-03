@@ -6,6 +6,7 @@ class ManipulationDOM {
 
   #createDialogAndFormsForList() {
     const formsModal = document.createElement('dialog');
+    formsModal.setAttribute('class', 'list-form-modal');
     formsModal.innerHTML = `
       <form action="" class="add-item-form">
         <div>
@@ -33,7 +34,7 @@ class ManipulationDOM {
           <input type="checkbox" id="completed">
         </div>
 
-        <button type="submit">add item</button>
+        <button type="submit" class="add-button-list">add item</button>
       </form>
     `;
     const content = document.querySelector('.content');
@@ -43,8 +44,8 @@ class ManipulationDOM {
 
 
   #createFormsButtonLogicForList(todoList, projects) {
-    const formsModal = document.querySelector('dialog');
-    const formsButton = document.querySelector('button');
+    const formsModal = document.querySelector('.list-form-modal');
+    const formsButton = document.querySelector('.add-button-list');
 
     formsButton.addEventListener('click', (e) => {
       e.preventDefault();
@@ -243,7 +244,7 @@ class ManipulationDOM {
     //Setup Modal Forms Logic
     this.#createDialogAndFormsForList();
     this.#createFormsButtonLogicForList(todoList, projects);
-    const formsModal = document.querySelector('dialog');
+    const formsModal = document.querySelector('.list-form-modal');
 
     this.#createTableOfItems(showList, todoList, projects);
 
